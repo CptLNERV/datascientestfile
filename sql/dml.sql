@@ -34,5 +34,9 @@ use datascientest;
 
 -- SELECT @@basedir;
 
-select * from ratings
-limit 10
+-- select * from ratings
+-- limit 10;
+
+select * from people
+
+
