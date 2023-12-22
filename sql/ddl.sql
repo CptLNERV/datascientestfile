@@ -28,6 +28,8 @@ CREATE TABLE Boissons
  PRIMARY KEY(BoissonId)
 );
 
+
+
 INSERT INTO Boissons
 VALUES
     (1,"Coca",33,0.99),
