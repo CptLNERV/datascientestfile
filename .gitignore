@@ -1,2 +1,3 @@
 ./sql/data
 ./mongodb/sample_training
+./spark/data
