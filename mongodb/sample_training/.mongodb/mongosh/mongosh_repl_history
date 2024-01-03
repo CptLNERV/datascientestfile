@@ -1,0 +1,61 @@
+db.zips.find({"city":"BOSTON"},{"city":1}).explain("executionStats")
+db.zips.createIndex({"city":1})
+use sample
+jijiji\
+dsadsadsadsad
+jide 
+dasdasdsa
+db.cie.aggregate([{$match:{"offices.city":"Seattle"}},{$project:{"_id":1,"name":1}}])
+db.cie.find( { "acquisitions.0.acquired_year": { $gt: 2007 } }, { "name": 1, "founded_year": 1, "_id": 0 } )
+db.cie.find({ "name": "Sony" }, { "acquisitions": 1 })
+db.cie.find( { "acquisitions.0.acquired_year": { $gt: 2007 } }, { "name": 1, "founded_year": 1, "_id": 0 } )
+db.cie.findOne()
+use sample
+db.zips.find({"state":"TX"},{"pop":1,"city":1})
+db.zips.find({},{"pop":0})
+db.zips.find({},{"pop":1})
+db.zips.find({"state":"TX"},{"pop":1})
+db.zips.find().limit(5).sort({"city":1})
+db.zips.find().limit(5)
+db.grades.find().sort({"student_id":-1,"class_id":1})
+db.grades.find().sort({"student":-1})
+db.grades.find( { $expr: { $eq: ["$student_id", "$class_id"] } } )
+db.grades.findOne()
+use sample
+db.grades.findOne()
+db.grades.find(One)
+db.grades.find()
+db.grades.findOne()
+use sample
+use xxx
+db.grades.findOne()
+use grades
+db.grades.findOne()
+db.grades.find( { $expr: { $eq: ["$student_id", "$class_id"] } } )
+use grades
+db.grades.find( { $expr: { $eq: ["$student_id", "$class_id"] } } )
+{ $expr: {$eq: ["$student_id", "$class_id"];} }
+)db.grades.find(
+{ $expr: {$eq: ["$student_id", "$class_id"];} }
+db.grades.find(db.grades.find(})
+db.zips.find({$and:[{"state":"CA"},{$and:[{"pop":{$lt:20000 }},{"pop":{$gt:19000 }}]}]})
+db.zips.find({$and:[{"state":"CA"},{$and:[{"pop":{$lt:20000 }},{"pop":{$gt:10000 }}]}]})
+use sample
+db.zips.find({$and:[{"state":"CA"},{$and:[{"pop":{$lt:20000 }},{"pop":{$gt:10000 }}]}]})
+db.zips.find({$and:[{"state":"CA"},{$and:[{"pop":{$lt:20000 }},{"pop":{$gt:19000 }}]}]})
+db.zips.find({$and:[{"state":"CA"},{$and:[{"pop":{$lt:20000 }},{"pop":{$gt:19999 }}]}]})
+db.zips.find({$and:[{"state":"CA"},{$and:[{"pop":{$lt:20000 }},{"pop":{$gt:19999 }}]}])
+db.zips.find({$and:[{"state":"CA"},{$and:[{"pop":{$lt:20000 }},{"pop":{$gt:19999 }}]})
+db.zips.find({$and:[{"state":"CA"},$and:[{"pop":{$lt:20000 }},{"pop":{$gt:19999 }]})
+db.zips.find({$and:[{"pop":{$lt:20000 }},{"pop":{$gt:19000 }}]})
+db.zips.find({$and:[{"pop":{$lt:20000 }},{"pop":{$gt:19999 }}]})
+db.zips.find({$and:[{"pop":{$lt:20000 }},{"pop":{$gt:10000 }}]})
+db.zips.find({ $and: [ { "state": "CA" }, { $and: [ { "pop": { $lt: 20000 } }, { "pop": { $gt: 10000 } }] }] } )
+db.zips.find({ $and: [ { "pop": { $lt: 20000 } }, { "pop": { $gt: 10000 } }] } )
+db.zips.find({})
+db.zips.find()
+db.zips.find({"pop":{$gte:12678}})
+use sample
+db.zips.find({"pop":{$gte:12678}})
+db.zips.find({"pop":{$gte:12678}}})
+db.zips.findOne()

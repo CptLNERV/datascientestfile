@@ -1,0 +1,6 @@
+sa
+db.zips.findOne()
+mongosh
+db.zips.findOne()
+use sample
+db.zips.findOne()
