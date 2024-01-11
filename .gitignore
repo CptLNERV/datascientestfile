@@ -1,3 +1,5 @@
 ./sql/data
 ./mongodb/sample_training
 ./spark/data/2008_original.csv
+./spark/data/YearPredictionMSD.txt
+./git-filter-repo
