@@ -30,15 +30,15 @@ def getToken ()->str: # return access_token
         "grant_type": "client_credentials"
     }
 
-    # 发送 POST 请求
+    # send POST request
     response = requests.post(api_url, headers=headers, data=data)
 
     # take care reponse
     if response.status_code == 200:
-        # 解析 JSON 响应
+        # Parsing JSON Responses
         json_response = response.json()
 
-        # 提取访问令牌等信息
+        # Extracting access tokens
         access_token = json_response.get("access_token")
         token_type = json_response.get("token_type")
         expires_in = json_response.get("expires_in")
@@ -86,14 +86,14 @@ def getRef(headers_token:dict):
 
 def getSchedule(headers_token:dict):
     params = {
-        "airlines": ["LH"], #根据返回400结果不能为“*”
-        "flightNumberRanges": "100-200",#根据返回400结果不能为“*”
-        "startDate": "01JAN23",  # 2023 年的开始日期
-        "endDate": "31DEC23",    # 2023 年的结束日期
-        "daysOfOperation": "1234567",  # 所有星期的航班
+        "airlines": ["LH"], # Based on the return of 400 results cannot be "*"
+        "flightNumberRanges": "100-200",#Based on the return of 400 results cannot be "*"
+        "startDate": "01JAN23",  # Start date in 2023
+        "endDate": "31DEC23",    # End date 2023
+        "daysOfOperation": "1234567",  # Flights all weeks
         "timeMode": "UTC",
-        "origin": "FRA",         # 出发地
-        "destination": "MUC"     # 目的地
+        "origin": "FRA",         # Departures
+        "destination": "MUC"     # destination
     }
 
     schedule_url = "https://api.lufthansa.com/v1/flight-schedules/flightschedules/passenger"
