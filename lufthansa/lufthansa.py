@@ -4,6 +4,8 @@
 import requests
 from pprint import pprint
 import json
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 def getToken ()->str: # return access_token
     # create API URL
@@ -99,18 +101,46 @@ def getSchedule(headers_token:dict):
 
     schedule_url = "https://api.lufthansa.com/v1/flight-schedules/flightschedules/passenger"
     schedule = requests.get(url=schedule_url,headers=headers_token,params=params)
+    print(type(schedule))
     # pprint(schedule.json())
+    
 
     with open("/home/jayl/data/json.json","w") as json_file:
         json.dump(schedule.json(),json_file,indent=2)
     print("schedule write in json.json")
 
+    return schedule
+
+
+def SendMongo(schedule):
+    uri_mongo = "mongodb+srv://jealiao:pfeXjC9afRTaeXpp@cluster0.hz5kuue.mongodb.net/?retryWrites=true&w=majority"
+
+    # Create a new client and connect to the server
+    client = MongoClient(uri_mongo, server_api=ServerApi('1'))
+    
+    # Send a ping to confirm a successful connection
+    try:
+        client.admin.command('ping')
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+    except Exception as e:
+        print(e)
+
+    db = client["Cluster0"]
+    collection = db["schedule"]
+
+    result = collection.insert_many(schedule.json())
+
 def main():
      access_token = getToken()
      headers_token = get_headers_token(access_token) 
      getRef(headers_token)
-     getSchedule(headers_token)
+     schedule = getSchedule(headers_token)
+     SendMongo(schedule)
+
+
+     # question1 how to got all the airport code.
      
+
 
 if __name__=="__main__":
         main()
