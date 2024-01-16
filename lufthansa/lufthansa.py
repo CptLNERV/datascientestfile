@@ -79,15 +79,16 @@ def getRef(headers_token:dict):
 
 
     ref = requests.get(url=ref_url,headers=headers_token)
-    pprint (ref.json())
+    # pprint (ref.json())
 
     with open("/home/jayl/data/ref.json","w") as json_file:
         json.dump(ref.json(),json_file,indent=2)
+    print("schedule write in ref.json")
 
 def getSchedule(headers_token:dict):
     params = {
         "airlines": ["LH"], # Based on the return of 400 results cannot be "*"
-        "flightNumberRanges": "100-200",#Based on the return of 400 results cannot be "*"
+        "flightNumberRanges": "100-400",#Based on the return of 400 results cannot be "*"
         "startDate": "01JAN23",  # Start date in 2023
         "endDate": "31DEC23",    # End date 2023
         "daysOfOperation": "1234567",  # Flights all weeks
@@ -108,7 +109,7 @@ def main():
      access_token = getToken()
      headers_token = get_headers_token(access_token) 
      getRef(headers_token)
-    #  getSchedule(headers_token)
+     getSchedule(headers_token)
      
 
 if __name__=="__main__":
