@@ -129,6 +129,7 @@ def SendMongo(schedule):
     collection = db["schedule"]
 
     result = collection.insert_many(schedule.json())
+    print("schedule inserted in to mongodb  ")
 
 def main():
      access_token = getToken()
