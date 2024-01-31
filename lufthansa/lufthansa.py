@@ -25,7 +25,7 @@ def getToken ()->str: # return access_token
         "Content-Type": "application/x-www-form-urlencoded"
     }
 
-    # 构建请求参数
+    # request send to get token
     data = {
         "client_id": client_id,
         "client_secret": client_secret,

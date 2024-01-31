@@ -59,9 +59,20 @@ def getFleets():
         json.dump(fleets_result.json(),json_file,indent=2)
     print("schedule write in fleets.json")
 
+
+def connexionMongo(nameC, datas):
+    urlString = "mongodb+srv://vananhdang2277:vYNdjz6bAE1Ec8Av@airlines.pwurtcd.mongodb.net/"
+    client = MongoClient(urlString, tls=True, tlsAllowInvalidCertificates=True)
+    print(client.list_database_names())
+
+    collections = client["airlabs"][nameC]
+    collections.insert_many(datas)
+
+
 def main():
     # getCity()
-    getFleets()
+    fleets = getFleets()
+    connexionMongo("Fleets",fleets)
     # ping()
 
 
