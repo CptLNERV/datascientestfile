@@ -6,11 +6,12 @@ from pprint import pprint
 import json
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import os
 
-
+#airlines dont need a token
 def getToken():
-
-    airlines_url =  ""
+    pass
+    # airlines_url =  ""
     # requests = 
 
 
@@ -38,8 +39,9 @@ def getCity():
     city_result = requests.get(url=url,params=params)
     city_response = city_result.json()
     pprint(city_response)
+    print(os.getcwd())
 
-    with open("/home/jayl/data/cities.json","w") as json_file:
+    with open("../data/cities.json","w") as json_file:
         json.dump(city_result.json(),json_file,indent=2)
     print("schedule write in cities.json")
 
@@ -70,9 +72,9 @@ def connexionMongo(nameC, datas):
 
 
 def main():
-    # getCity()
-    fleets = getFleets()
-    connexionMongo("Fleets",fleets)
+    getCity()
+    # fleets = getFleets()
+    # connexionMongo("Fleets",fleets)
     # ping()
 
 
