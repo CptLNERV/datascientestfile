@@ -57,9 +57,26 @@ def getFleets():
     fleets_result = requests.get(url=url,params=params)
     pprint(fleets_result.json())
 
-    with open("/home/jayl/data/fleets.json","w") as json_file:
+    with open("../data/fleets.json","w") as json_file:
         json.dump(fleets_result.json(),json_file,indent=2)
     print("schedule write in fleets.json")
+
+
+
+def getCountry():
+    url="https://airlabs.co/api/v9/countries"
+    params={
+        "api_key": "337b9104-c0af-42f9-b206-05a3a6eb0a62",
+        "country_code": "FR,CN",
+        "continent":"EU,AS"
+    }
+    country_result = requests.get(url=url,params=params)
+    # print(country_result.json())
+    return country_result
+    
+    with open("../data/countries.json","w") as json_file:
+        json.dump(country_result.json(),json_file,indent=2)
+    print("insert country data")
 
 
 def connexionMongo(nameC, datas):
@@ -69,10 +86,33 @@ def connexionMongo(nameC, datas):
 
     collections = client["airlabs"][nameC]
     collections.insert_many(datas)
+    print(f"successful insert data {nameC}")
+
+def SendMongoJay(data,collection:str):
+    uri_mongo = "mongodb+srv://jealiao:pfeXjC9afRTaeXpp@cluster0.hz5kuue.mongodb.net/?retryWrites=true&w=majority"
+
+    # Create a new client and connect to the server
+    client = MongoClient(uri_mongo, server_api=ServerApi('1'))
+    
+    # Send a ping to confirm a successful connection
+    try:
+        client.admin.command('ping')
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+    except Exception as e:
+        print(e)
+
+    db = client["Cluster0"]
+    collection = db[collection]
+
+    result = collection.insert_many(data.json())
+    print(f"successfully {collection} inserted in to mongodb  ")
 
 
 def main():
-    getCity()
+    # getCity()
+    countries= getCountry()
+    # connexionMongo("countries",countries)
+    SendMongoJay(countries,"countries")
     # fleets = getFleets()
     # connexionMongo("Fleets",fleets)
     # ping()
