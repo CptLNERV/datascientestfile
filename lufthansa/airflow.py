@@ -72,14 +72,16 @@ def getCountry():
     }
     country_result = requests.get(url=url,params=params)
     # print(country_result.json())
-    return country_result
+    
     
     with open("../data/countries.json","w") as json_file:
         json.dump(country_result.json(),json_file,indent=2)
     print("insert country data")
 
+    return country_result
 
-def connexionMongo(nameC, datas):
+
+def connexionMongo(nameC:str, datas:requests.models.Response)-> None:
     urlString = "mongodb+srv://vananhdang2277:vYNdjz6bAE1Ec8Av@airlines.pwurtcd.mongodb.net/"
     client = MongoClient(urlString, tls=True, tlsAllowInvalidCertificates=True)
     print(client.list_database_names())
@@ -88,7 +90,26 @@ def connexionMongo(nameC, datas):
     collections.insert_many(datas)
     print(f"successful insert data {nameC}")
 
-def SendMongoJay(data,collection:str):
+def SendMongoVan(data:requests.models.Response,col_name:str)-> None:
+    uri_mongo = "mongodb+srv://vananhdang2277:vYNdjz6bAE1Ec8Av@airlines.pwurtcd.mongodb.net/?retryWrites=true&w=majority"
+
+    # Create a new client and connect to the server
+    client = MongoClient(uri_mongo, server_api=ServerApi('1'))
+    
+    # Send a ping to confirm a successful connection
+    try:
+        client.admin.command('ping')
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+    except Exception as e:
+        print(e)
+
+    db = client["airlabs"]
+    collection = db[col_name]
+
+    collection.insert_many([data.json()]) #insert_many only allow insert list type data
+    print(f"successfully {col_name} inserted in to mongodb of Van ")
+
+def SendMongoJay(data:requests.models.Response,col_name:str)-> None:
     uri_mongo = "mongodb+srv://jealiao:pfeXjC9afRTaeXpp@cluster0.hz5kuue.mongodb.net/?retryWrites=true&w=majority"
 
     # Create a new client and connect to the server
@@ -102,17 +123,24 @@ def SendMongoJay(data,collection:str):
         print(e)
 
     db = client["Cluster0"]
-    collection = db[collection]
+    collection = db[col_name]
 
-    result = collection.insert_many(data.json())
-    print(f"successfully {collection} inserted in to mongodb  ")
+    collection.insert_many([data.json()]) #insert_many only allow insert list type data
+    print(f"successfully {col_name} inserted in to mongodb of Jay ")
 
+def printjson(data:requests.models.Response)-> None:
+    print(type(data))
+    print(data)
+    # print(data.json())
+    
 
 def main():
     # getCity()
     countries= getCountry()
     # connexionMongo("countries",countries)
+    printjson(countries)
     SendMongoJay(countries,"countries")
+    # SendMongoVan(countries,"countries")
     # fleets = getFleets()
     # connexionMongo("Fleets",fleets)
     # ping()
