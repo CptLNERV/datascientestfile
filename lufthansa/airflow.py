@@ -72,11 +72,12 @@ def getCountry():
     }
     country_result = requests.get(url=url,params=params)
     # print(country_result.json())
+
+    country_result = country_result.json().get("response")
     
-    
-    with open("../data/countries.json","w") as json_file:
-        json.dump(country_result.json(),json_file,indent=2)
-    print("insert country data")
+    with open("../../data/countries.json","w") as json_file:
+        json.dump(country_result,json_file,indent=2)
+    print("inserted country data")
 
     return country_result
 
@@ -138,8 +139,8 @@ def main():
     # getCity()
     countries= getCountry()
     # connexionMongo("countries",countries)
-    printjson(countries)
-    SendMongoJay(countries,"countries")
+    # printjson(countries)
+    # SendMongoJay(countries,"countries")
     # SendMongoVan(countries,"countries")
     # fleets = getFleets()
     # connexionMongo("Fleets",fleets)
