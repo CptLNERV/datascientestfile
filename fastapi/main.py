@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from typing import Optional
+from pydantic import BaseModel
 
 users_db = [
     {
@@ -103,6 +104,41 @@ def get_item_default(itemid):
         'itemid': itemid,
         'source': 'string'
     }
+
+
+class Item(BaseModel):
+    itemid:int
+    description:str
+    ower:Optional[str] = None
+
+
+@api.post('/item')
+def post_item(item:Item):
+    return{
+        "itemid":item.other
+    }
+
+class User(BaseModel):
+    userid: Optional[int]
+    name: str
+    subscription: str
+
+
+@api.put("/users")
+def add_user(user:User):
+    new_id = max([ user["user_id"] for user in users_db])
+    new_user ={
+        "userid":new_id+1,
+        "name":user.name,
+        "subscription":user.subscription
+    }
+    users_db.append(new_user)
+    return new_user
+
+
+    
+
+    
 
 
 
